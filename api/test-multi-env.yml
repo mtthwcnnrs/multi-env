@@ -1,0 +1,50 @@
+openapi: 3.0.1
+info:
+  title: test-multi-env
+  description: Testing options for making virus scanning multi env.
+  version: "1.0.0"
+paths:
+  /hello:
+    get:
+      summary: hello endpoint
+      description: Sends hello message per environment active
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HelloRequest'
+        required: true
+      responses:
+        "202":
+          description: The request was accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloResult'
+        "401":
+          description: Unauthorized request
+        "403":
+          description: Unauthorized request
+
+components:
+  schemas:
+    HelloRequest:
+      type: object
+      required: [env]
+      properties:
+        env:
+          type: string
+          description: |
+            Name of the environment to use.
+          example: dev
+    HelloResult:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum:
+            - QUEUED                              # Queued but not processed yet
+            - SUCCESS                             # Completed scan and obtained scan result (clean or infected)
+            - FAILED_TO_RETRIEVE_FILE_FROM_STORE  # Failed to retrieve file from store presigned URL was incorrect/expired
+            - FAILED_TO_SCAN                      # Failed to scan the file
