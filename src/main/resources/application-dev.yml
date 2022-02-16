@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: testMultiEnv
+
+env:
+  dev:
+    test: test-dev
