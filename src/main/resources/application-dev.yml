@@ -5,3 +5,4 @@ micronaut:
 env:
   dev:
     test: test-dev
+    other: other-dev

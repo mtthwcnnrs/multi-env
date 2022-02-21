@@ -4,6 +4,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import jakarta.inject.Inject;
 import test.multi.env.service.Mapping;
+import test.multi.env.service.OtherService;
 import test.multi.env.service.TestService;
 
 import java.util.Map;
@@ -20,10 +21,12 @@ public class EnvController {
     @Post
     @Produces(MediaType.APPLICATION_JSON)
     public String index(String env) {
-        Map<String, TestService> map = this.mapping.getServices();
+        Map<String, TestService> testMap = this.mapping.getTestServices();
+        Map<String, OtherService> otherMap = this.mapping.getOtherServices();
 
-        TestService myService = map.get(env);
+        TestService myTestService = testMap.get(env);
+        OtherService myOtherService = otherMap.get(env);
 
-        return myService.getTest();
+        return "Test Service: " + myTestService.getTest() + "\nOther Service: " + myOtherService.getOther();
     }
 }
