@@ -5,3 +5,4 @@ micronaut:
 env:
   stage:
     test: test-stage
+    other: other-stage

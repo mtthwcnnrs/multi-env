@@ -5,3 +5,4 @@ micronaut:
 env:
   qa:
     test: test-qa
+    other: other-qa
